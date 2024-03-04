@@ -1,3 +1,5 @@
+clear
+
 A = [7.2, 2.81, -1.2, 1.59; -0.3, 4.84, 1.8, ...
     1.48; 2.56, -1.12, -10, -1.24; 2.31, -0.64, 0, 4.71];
 B = [-11.35; -16.79; 46.53; 15.69];
@@ -5,9 +7,11 @@ B = [-11.35; -16.79; 46.53; 15.69];
 A = [3, 1, 1; 1, 4, 1; 1, 1, 3];
 B = [5; 6; 5];
 
-epsilon = 0.2;
+epsilon = 0.1;
+licznik_iteracji = 0;
 
 % Warunek zbierzności
+
 G = -A;
 for licznik = 1:size(A, 1)
     G(licznik, licznik) = 0;
@@ -24,6 +28,7 @@ end
 Xarch = Cr;
 
 while   true
+licznik_iteracji = licznik_iteracji + 1;
 
 disp(Xarch);
 disp(Cr);
@@ -40,6 +45,14 @@ else
 end
 
 Xarch = X;
-disp(X)
+X_dokladne = round(X + epsilon);
+Y = A^-1 * B;
+end
 
+disp(X_dokladne);
+disp(Y);
+if isequal(X_dokladne, Y)
+    disp("Znalezione rozwiazanie jest poprawne");
+else
+    disp("Wyniki się nie pokrywają");
 end
